@@ -1,7 +1,7 @@
 import './Basic01.css';
 
 
-function Basic01() {
+function Basic01() { 
 
     let msg = "안녕~";
     let state = "배가 고프다";
