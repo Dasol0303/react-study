@@ -1,5 +1,6 @@
 import './NewsBlog.css';
 import { useState } from "react";
+import Modal from './Modal';
 
 
 function NewsBlog() {
@@ -14,6 +15,10 @@ function NewsBlog() {
 
     let [likeCountArr, setLikeCountArr] = useState([0,0,0]);
 
+    let[showModal, setShowModal] = useState(false);
+
+    let [selectedTitle, setSelectedTitle] = useState('');
+
 
     return (
         <div>
@@ -23,7 +28,15 @@ function NewsBlog() {
             </div>
 
             <div className='post-list'>
-                <h4>{news[0]} <span onClick={()=>{
+                <h4 onClick={()=>{
+                    if(showModal)
+                        setShowModal(false);
+                    else
+                        setShowModal(true);
+
+                    setSelectedTitle(news[0]);
+
+                }}>{news[0]} <span onClick={()=>{
                     // setLikeCount(likeCount1 + 1);
 
                     let temp = [...likeCountArr];
@@ -51,7 +64,10 @@ function NewsBlog() {
             </div>
 
             <div className='post-list'>
-                <h4>{news[1]}<span onClick={()=>{
+                <h4 onClick={()=>{
+                    setShowModal(!showModal);
+                    setSelectedTitle(news[1]);
+                }}>{news[1]}<span onClick={()=>{
                     // setLikeCount(likeCount2 + 1);
 
                     let temp = [...likeCountArr];
@@ -63,7 +79,14 @@ function NewsBlog() {
             </div>
 
             <div className='post-list'>
-                <h4>{news[2]}<span onClick={()=>{
+                <h4 onClick={()=>{
+                    setShowModal(!showModal);
+                    setSelectedTitle(news[2]);
+                }}>{news[2]}<span onClick={(event)=>{
+                    event.stopPropagation(); // 전파를 막겠다
+                    // 속해있는 부모 요소의 이벤트 처리까지 전파되는걸 막겠다
+                    // <h4><span></span></h4>
+
                     // setLikeCount(likeCount3 + 1);
 
                     let temp = [...likeCountArr];
@@ -74,6 +97,12 @@ function NewsBlog() {
                 <p>내용 무</p>
             </div>
             
+            {
+                // showModal == true ? <Modal/> : null
+                showModal && <Modal title={selectedTitle}/>
+            }
+            
+
         </div>
     );
 }
