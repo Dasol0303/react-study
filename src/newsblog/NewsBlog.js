@@ -117,8 +117,19 @@ function NewsBlog() {
                                     temp[index] += 1;
                                     setLikeCountArr(temp);
 
-                            }}>❤</span>{likeCountArr[index]}</h4>
+                            }}>💖</span>{likeCountArr[index]}</h4>
                                 <p>내용 무</p>
+                                <button onClick={()=>{
+                                    // news.splice(index, 1);
+                                    let temp = [...news];
+                                    temp.splice(index, 1);
+                                    setNews(temp);
+
+                                    likeCountArr.splice(index, 1); 
+                                    //좋아요를 삭제하지 않으면 인덱스가 밀림!!
+
+                                    console.log(news);//확인용
+                                }}>삭제</button>
                             </div>
 
                     );
