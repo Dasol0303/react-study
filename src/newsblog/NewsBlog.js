@@ -6,7 +6,7 @@ import Modal from './Modal';
 function NewsBlog() {
 
     let title = "React Study";
-    let [news, setNewsArr] = useState(['오늘의 뉴스', '어제의 뉴스', '내일의 뉴스']);
+    let [news, setNews] = useState(['오늘의 뉴스', '어제의 뉴스', '내일의 뉴스']);
                                     // ['Today news', '어제의 뉴스', '내일의 뉴스']
     let textBoolean = true;
     const [likeCount1, setLikeCount1] = useState(0);
@@ -18,6 +18,7 @@ function NewsBlog() {
     let[showModal, setShowModal] = useState(false);
 
     let [selectedTitle, setSelectedTitle] = useState('');
+    let [selectedLikeCount, setSelectedLikeCount] = useState(0);
 
 
     return (
@@ -27,81 +28,41 @@ function NewsBlog() {
                 <p style={ {color:"orange", fontSize:'20px'} }>{title}</p>
             </div>
 
-            <div className='post-list'>
-                <h4 onClick={()=>{
-                    if(showModal)
-                        setShowModal(false);
-                    else
-                        setShowModal(true);
+            {   //map
+                news.map((item, index)=>{ //item 값 안에 배열에 있는 거 들어있을거임!!
 
-                    setSelectedTitle(news[0]);
+                    return (
 
-                }}>{news[0]} <span onClick={()=>{
-                    // setLikeCount(likeCount1 + 1);
+                            <div className='post-list'>
+                                <h4 onClick={()=>{
+                                    setShowModal(!showModal);
+                                    setSelectedTitle(item);
+                                    setSelectedLikeCount(likeCountArr[index]);
+                                    }}>{item}
+                                <span onClick={(event)=>{
+                                    event.stopPropagation();
 
-                    let temp = [...likeCountArr];
-                    temp[0] += 1;
-                    setLikeCountArr(temp);
+                                    let temp = [...likeCountArr];
+                                    temp[index] += 1;
+                                    setLikeCountArr(temp);
 
-                }}>❤</span>{likeCountArr[0]}</h4>
-                <p>내용 무</p>
-                {/* <button onClick={()=> {
-                    let temp = [...news];
-                        if(textBoolean == true) {
-                            let temp = [...news];
-                            news[0] = 'Today News';
-                            setNewsArr(temp);
+                            }}>❤</span>{likeCountArr[index]}</h4>
+                                <p>내용 무</p>
+                            </div>
 
-                            textBoolean = false;
-                        } else {
-                            let temp = [...news];
-                            news[0] = '오늘의 뉴스';
-                            setNewsArr(temp);
+                    );
+                            
+                })
+            }
 
-                            textBoolean = true;
-                        }
-                }}>제목 변경</button> */}
-            </div>
-
-            <div className='post-list'>
-                <h4 onClick={()=>{
-                    setShowModal(!showModal);
-                    setSelectedTitle(news[1]);
-                }}>{news[1]}<span onClick={()=>{
-                    // setLikeCount(likeCount2 + 1);
-
-                    let temp = [...likeCountArr];
-                    temp[1] += 1;
-                    setLikeCountArr(temp);
-
-                }}>❤</span>{likeCountArr[1]}</h4>
-                <p>내용 무</p>
-            </div>
-
-            <div className='post-list'>
-                <h4 onClick={()=>{
-                    setShowModal(!showModal);
-                    setSelectedTitle(news[2]);
-                }}>{news[2]}<span onClick={(event)=>{
-                    event.stopPropagation(); // 전파를 막겠다
-                    // 속해있는 부모 요소의 이벤트 처리까지 전파되는걸 막겠다
-                    // <h4><span></span></h4>
-
-                    // setLikeCount(likeCount3 + 1);
-
-                    let temp = [...likeCountArr];
-                    temp[2] += 1;
-                    setLikeCountArr(temp);
-
-                }}>❤</span>{likeCountArr[2]}</h4>
-                <p>내용 무</p>
-            </div>
-            
             {
                 // showModal == true ? <Modal/> : null
-                showModal && <Modal title={selectedTitle}/>
+                //props 전달
+                // 변수, 배열, 객체, 함수, 요소(컴포넌트) 전달 가능
+                showModal && <Modal title={selectedTitle} likeCount={selectedLikeCount} 
+                            news={news} setNews={setNews} 
+                            bgColor='lightblue'/>
             }
-            
 
         </div>
     );
