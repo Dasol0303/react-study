@@ -1,0 +1,32 @@
+.header-main {
+    background-color: black;
+    height: 100px;
+    text-align: center;
+}
+
+h4 {
+    color: white;
+    font-weight: bold;
+    
+}
+
+h2 {
+    color: orange;
+}
+
+h5 {
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+
+.content {
+    border: 1px solid lightgray;
+
+}
+
+.box-content {
+    background-color: lightblue;
+    
+    height: 50px;
+}
