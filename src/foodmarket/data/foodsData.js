@@ -22,7 +22,7 @@ let foodsData = [
     title : "Hamburger",
     content : "완전식품 햄버거",
     price : 11000,
-    imgPath: '/images/food2.jpg'
+    imgPath: '/images/food3.jpg'
     }
 ] ;
 
