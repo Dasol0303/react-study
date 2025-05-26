@@ -6,13 +6,21 @@ import './FoodMarket.css';
 // import Nav from 'react-bootstrap/Nav';
 // import Navbar from 'react-bootstrap/Navbar';
 import {Nav, Navbar, Container, Card, Button, Row, Col} from 'react-bootstrap';
+import foodsData from '../data/foodsData';
 
 import banner_bg from '../images/banner_bg.jpg';
 import food1 from '../images/food1.jpg';
 import food2 from '../images/food2.jpg';
 import food3 from '../images/food3.jpg';
+import { useState } from 'react';
+import FoodCard from '../components/FoodCard';
 
 function FoodMarket() {
+
+    let [foods, setFoods] = useState(foodsData);
+    //food 이미지도 처리하자!!
+    let [imgFood, setImgFood] = useState([food1, food2, food3]);
+    let [foodCard, setFoodCard] = useState([0,0,0]);
 
     return (
         <div>
@@ -60,10 +68,12 @@ function FoodMarket() {
                                 <Card.Img variant="top" src='/images/food1.jpg' />
 {/* html로 열면 이미지 경로가 바뀌기 때문에 위처럼 적어줌! -> import를 하는 것도 이유 중 하나! */}
                                 <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
+                                    <Card.Title>{foods[0].title}</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.
+                                        {foods[0].content}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        {foods[0].price}
                                     </Card.Text>
                                     <Button variant="primary">Go somewhere</Button>
                                 </Card.Body>
@@ -75,10 +85,12 @@ function FoodMarket() {
                                 {/* <Card.Img variant="top" src={food2} /> */}
                                 <Card.Img variant="top" src={process.env.PUBLIC_URL + '/images/food2.jpg'} />
                                 <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
+                                    <Card.Title>{foods[1].title}</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.
+                                        {foods[1].content}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        {foods[1].price}
                                     </Card.Text>
                                     <Button variant="primary">Go somewhere</Button>
                                 </Card.Body>
@@ -90,10 +102,12 @@ function FoodMarket() {
                                 {/* import 해서 들어온 경우! */}
                                 <Card.Img variant="top" src={food3} />
                                 <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
+                                    <Card.Title>{foods[2].title}</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.
+                                        {foods[2].content}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        {foods[2].price}
                                     </Card.Text>
                                     <Button variant="primary">Go somewhere</Button>
                                 </Card.Body>
@@ -102,6 +116,18 @@ function FoodMarket() {
                     </Row>
                 </Container>
 
+
+    {
+        foodCard.map ((item, index)=>{
+            
+            return (
+                            <Col md={4} sm={6}>
+                                <FoodCard item={item} foods={foods} setFoods={setFoods} index={index} imgFood={imgFood}/>
+                            </Col>
+
+            );
+        })
+    }
 
             
 
