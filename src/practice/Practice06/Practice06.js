@@ -5,10 +5,10 @@ function Practice06() {
 
         let [boxes, setBoxes] = useState(['red', 'blue', 'green', 'black']);
 
-
+        let delet = [...boxes];
 
     return (
-<div>
+        <div>
             <div>
                 <button onClick={() => {
                     let temp = ['red', ...boxes];
@@ -65,8 +65,8 @@ function Practice06() {
             } */}
 
             {
-                boxes.map((item)=>{
-                    return <Prac05Box bgColor={item}/>;
+                boxes.map((item, index)=>{
+                    return <Prac05Box bgColor={item} boxes={boxes} setBoxes={setBoxes} index={index}/>;
                 })
             }
 

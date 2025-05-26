@@ -3,10 +3,15 @@ import './Practice06.css';
 
 function Prac05Box(color) {
     return (
-        <div>
-{/* 동욱님이 알려주심... color 저거 받을 때는 '속성.color' 이렇게 받자..ㅠㅠ */}
-{/* <div className='box' style={{backgroundColor:color.color}}></div> */}
-            <div className='box' style={{backgroundColor:color.bgColor}}></div>
+        <div className='box' style={{backgroundColor:color.bgColor}}>
+        <button onClick={()=>{
+
+            let temp = [...color.boxes];
+            // 아니 여기... 배열 자체말고 인덱스 숫자 넘기자요..
+            temp.splice(color.index, 1);
+            color.setBoxes(temp);
+            
+        }}>X</button>
         </div>
     );
 }
