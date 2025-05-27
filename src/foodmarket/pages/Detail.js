@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { useEffect, useState } from 'react';
 
+
 // function Detail(props) {
 function Detail({foods}) {
 
@@ -172,7 +173,6 @@ function Detail({foods}) {
                 <p className={ `text-strong ${food.price >= 10000 ? 'price-red ' : 'price-bule '} `}>{food.price}</p>
         */
 
-
     return (
                             // "start end"
         <Container className={'start ' + viewClass}>
@@ -192,11 +192,18 @@ function Detail({foods}) {
                         }}>-</Button>
                         <span> {orderCount} </span>
                         <Button variant="dark" onClick={()=>{
-                            setOrderCount(orderCount + 1);
+                            if(food.stockCount >= orderCount + 1)
+                                setOrderCount(orderCount + 1); //재고수량 넘지 않도록 제한 걸어주기!!
+
                         }}>+</Button>
                     </p>
 
-                    <Button variant="primary">주문하기</Button>
+                        { //참이면 주문하기, 거짓이면 품절!!
+                            food.stockCount > 0 ?
+                                <Button variant='primary'>주문하기</Button>
+                                :
+                                <Button variant='danger' disabled>품절</Button>
+                        }
                 </Col>
             </Row>
 
