@@ -1,11 +1,16 @@
 import './Detail.css';
 import { useParams } from 'react-router';
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import { useEffect, useState } from 'react';
 
 // function Detail(props) {
 function Detail({foods}) {
 
     let { id } = useParams(); //요 안에는 따로 배열 적으면 X
+
+    let [orderCount, setOrderCount] = useState(0);
+
+    let[showModal, setShowModal] = useState(true);
 
     //  foods 전체 정보 보유
 
@@ -21,6 +26,53 @@ function Detail({foods}) {
     //if(food == -1){}
 
     // console.log(food);
+
+    // LifeCycle (생성mount, 수정updat, 삭제unmount)
+    // useEffext (실행할 함수, 의존성 배열)
+    // useEffext (실행할 함수 { return () => {clean up function} }, 의존성 배열)
+
+    useEffect(()=>{     //의존성 배열 X -> 매번 렌더링시 실행 (로딩생성mount, 수정update)
+        console.log('useEffect')
+    })
+
+    useEffect(()=>{     //의존성 빈 배열O -> 로딩생성(mount)
+        console.log('useEffect, []')
+    }, []) //중복되는거 좀 걸러주는 듯?
+
+    useEffect(()=>{     //의존성 배열 -> 로딩생성mount, 배열내에 변수가 변경될때(수정update) 
+        console.log('useEffect, [orderCount]')
+        console.log(orderCount); //정확하게 바뀐 값 사용 가능!(의존성 배열 통해서)
+
+        //return 함수 -> 나중에 청소해야할 콜백함수가 됨!(???)
+        return ()=>{console.log('useEffect, [orderCount] 에 들어있는 return 함수 실행')}
+
+    }, [orderCount])
+
+    /*
+    useEffect(()=>{
+        let cnt = 0;
+        let intv = setInterval(()=>{
+            console.log(cnt++);
+        }, 1000)
+
+        return ()=>{
+            clearInterval(intv);
+        }
+    })
+    */
+
+    //modal 창 가리기
+    useEffect(()=>{
+
+        setTimeout(()=>{
+            setShowModal(false);
+        }, 2000) //특정 효과 주기!!-> 지금 이건 창이 2초 뒤에 사라지는 형태
+
+    }, [])
+
+
+
+    //렌더링 위치 중요!!
 
     if(food == undefined) { //잘못된 id값이 들어옴. 해당 id 상품 없음
 
@@ -42,14 +94,42 @@ function Detail({foods}) {
                     <p>{food.content}</p>
                     <p>{food.price}</p>
                     <p>
-                        <Button variant="dark">-</Button>
-                        <span> 0 </span>
-                        <Button variant="dark">+</Button>
+                        <Button variant="dark" onClick={()=>{
+                            if(orderCount > 0)
+                                setOrderCount(orderCount - 1);
+                        }}>-</Button>
+                        <span> {orderCount} </span>
+                        <Button variant="dark" onClick={()=>{
+                            setOrderCount(orderCount + 1);
+                        }}>+</Button>
                     </p>
 
                     <Button variant="primary">주문하기</Button>
                 </Col>
             </Row>
+
+            {
+                //showModal &&
+                //showModal == true ?   :
+            }
+            <Modal show={showModal} onHide={()=>{setShowModal(false)}}>
+                <Modal.Header closeButton>
+                    <Modal.Title>환영합니다~</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>어서오세요~ Food 구경하세요~</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={()=>{setShowModal(false)}}>
+                        확인 
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+
+
+
+
+
         </Container>
     );
 }
