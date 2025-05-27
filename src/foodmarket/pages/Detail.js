@@ -17,6 +17,19 @@ function Detail({foods}) {
         //food.id -> foodData 안의 id 정보
     })
     
+    //foods.findIndex -> findIndex의 경우 못 찾는걸 -1로 표기함
+    //if(food == -1){}
+
+    // console.log(food);
+
+    if(food == undefined) { //잘못된 id값이 들어옴. 해당 id 상품 없음
+
+        return (
+            <div>
+                <h1>존재하지 않는 상품입니다. 잘못된 접근입니다.</h1>
+            </div>
+        );
+    }
 
     return (
         <Container>
