@@ -94,7 +94,7 @@ function AppRS() {
                         String(num), //단순 텍스트로 보내기
                         {
                             headers: {
-                                'Content-Type' : 'application.json'
+                                'Content-Type' : 'application/json'
                                 //                text/plain
                             }
                         }
