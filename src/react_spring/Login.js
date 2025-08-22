@@ -1,7 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+
+// slice 파일 하나로 묶어서 나누 버전 import
 import { saveUserId, clearUserId, saveUserInfo, setWeatherInfo } from "./store/store";
+
+//slice 파일 나눈 버전 import
+// import { saveUserId, clearUserId, saveUserInfo } from "./store - 복사본/userSlice";
+// import { setWeatherInfo } from "./store - 복사본/weatherSlice";
 
 
 function Login() {
