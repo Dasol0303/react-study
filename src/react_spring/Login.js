@@ -65,6 +65,63 @@ function Login() {
             }}>
                 로그인여부체크
             </button>
+
+            <button onClick={()=>{
+                //로그인 시도 -> 서버에 id, pw 전달
+
+                //axios.post( url, dataBody, header )
+                axios.post(
+                    '/api/loginJWT',
+                    {               // post http 요청시 보낼 body data
+                        id: id,     // key : value
+                        pw: pw      // id 라는 key값 : id 변수에 들어있는 값
+                    },
+                    {
+                        headers : {
+                            'Content-Type':'application/json'
+                        }
+                    }
+                )
+                .then(
+                    response => {                     
+                        console.log(response.data);  //accessToken 
+
+                        let token = response.data;   //JWT    토큰
+                        if(token != null && token != ''){
+                            //로컬 스토리지에 토큰을 저장
+                            //다음에 API 로 요청할일 있을때, 토큰도 담아서 같이 전송
+
+                            // 토큰을 로컬 스토리에 저장
+                            // localStorage.setItem(key, value)
+                            // localStorage.getItem(key)
+                            localStorage.setItem("token", token);
+                        }
+
+                        //로그인 성공? 실패?
+                        //페이지 전환 처리~ 
+                    }
+                )
+                .catch(error => console.log(error))
+            }}>
+                로그인JWT
+            </button>
+
+            <button onClick={()=>{
+                axios.post(
+                    '/api/loginCheckJWT',
+                    {},
+                    {
+                        headers: {
+                            "Content-Type":"application/json",
+                            "Authorization":"Bearer " + localStorage.getItem("token")
+                        }
+                    }
+                )
+                .then(response => console.log(response.data))
+                .catch(error => console.log(error))
+            }}>
+                로그인여부체크JWT
+            </button>
         
         </div>
 
